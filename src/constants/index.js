@@ -31,15 +31,15 @@ export const navLinks = [
     title: "Home",
   },
   {
-    id: "mirza-portfolio/about",
+    id: "/about",
     title: "About",
   },
   {
-    id: "mirza-portfolio/works",
+    id: "/works",
     title: "Works",
   },
   {
-    id: "mirza-portfolio/contact",
+    id: "/contact",
     title: "Contact",
   },
 ];

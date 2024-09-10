@@ -7,15 +7,15 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "mirza-portfolio/about",
+    path: "/about",
     element: <AboutPage />,
   },
   {
-    path: "mirza-portfolio/works",
+    path: "/works",
     element: <WorksPage />,
   },
   {
-    path: "mirza-portfolio/contact",
+    path: "/contact",
     element: <ContactPage />,
   },
 ]);
