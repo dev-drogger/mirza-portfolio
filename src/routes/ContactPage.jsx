@@ -1,4 +1,4 @@
-import { NavBar, SocialMedia, Loading } from "./";
+import { NavBar, SocialMedia, Loading } from "../components";
 import { useState, useEffect } from "react";
 import { Velustro } from "uvcanvas";
 import styles, { layout } from "../constants/style";

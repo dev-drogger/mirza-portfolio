@@ -7,12 +7,12 @@ import React, {
   useRef,
 } from "react";
 import { images } from "../constants/outputArray";
-import { NavBar, LibraryCard, Loading } from "./";
-import PhotoDisplay from "./PhotoDisplay";
+import { NavBar, LibraryCard, Loading } from "../components";
+import PhotoDisplay from "../components/PhotoCard";
 import { useSpring, animated } from "@react-spring/web"; // Add this import
 
 const photoSets = images;
-const LazyPhotos = React.lazy(() => import("./Photos"));
+const LazyPhotos = React.lazy(() => import("../components/Photos"));
 
 const MemoizedPhotoDisplay = React.memo(PhotoDisplay);
 const MemoizedLibraryCard = React.memo(LibraryCard);

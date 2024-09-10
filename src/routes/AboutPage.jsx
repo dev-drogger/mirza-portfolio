@@ -1,5 +1,11 @@
 import { experiences, chunkArray, job } from "../constants";
-import { AboutDetails, NavBar, Heading, DownloadButton, Loading } from "./";
+import {
+  AboutDetails,
+  NavBar,
+  Heading,
+  DownloadButton,
+  Loading,
+} from "../components";
 import styles from "../constants/style";
 import { lsprlogo } from "../assets/icon";
 import { useMemo, useState, useEffect } from "react";

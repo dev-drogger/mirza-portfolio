@@ -27,19 +27,19 @@ export const landingCarousel = [
 
 export const navLinks = [
   {
-    id: "/",
+    id: "mirza-portfolio/",
     title: "Home",
   },
   {
-    id: "/about",
+    id: "mirza-portfolio/about",
     title: "About",
   },
   {
-    id: "/works",
+    id: "mirza-portfolio/works",
     title: "Works",
   },
   {
-    id: "/contact",
+    id: "mirza-portfolio/contact",
     title: "Contact",
   },
 ];

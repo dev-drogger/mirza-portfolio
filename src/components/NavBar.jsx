@@ -1,6 +1,6 @@
 import { navLinks } from "../constants";
 import { useState } from "react";
-import { close, logo, menu } from "../assets/icon";
+import { close, menu } from "../assets/icon";
 import { Link } from "react-router-dom";
 
 function NavBar() {
