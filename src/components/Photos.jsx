@@ -38,9 +38,9 @@ function Photos({ currentLibrary, currentImage }) {
           </div>
         </div>
 
-        <div className="bg-primary grid grid-cols-4 w-full h-full px-44 gap-4 sm:gap-6">
+        <div className="bg-primary grid grid-cols-4 w-full h-full px-44 overflow-hidden gap-4 sm:gap-6">
           {currentLibrary.map((item, index) => (
-            <Suspense key={item.path} fallback={<div>Loading...</div>}>
+            <Suspense key={item.path}>
               <LazyPhotoCard
                 index={index}
                 imgURL={item.path}

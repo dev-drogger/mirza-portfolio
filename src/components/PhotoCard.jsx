@@ -12,7 +12,7 @@ function PhotoCard({ imgURL, changeLandingImage, landingImage }) {
         <div
           className={`flex border-2 justify-center items-center rounded-xl ${
             landingImage === imgURL ? "border-coral-red" : "border-transparent"
-          } cursor-pointer max-sm:flex-1`}
+          } cursor-pointer max-sm:flex-1 overflow-hidden`}
           onClick={changeLandingImage}
         >
           <img
