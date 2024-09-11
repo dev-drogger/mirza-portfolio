@@ -68,7 +68,7 @@ function WorksPage() {
     setShouldStartTransition(false);
     const transitionTimer = setTimeout(() => {
       setShouldStartTransition(true);
-    }, 6500);
+    }, 4750);
 
     return () => {
       clearTimeout(transitionTimer);
@@ -94,7 +94,7 @@ function WorksPage() {
         }, 4000);
         intervalIdRef.current = newIntervalId;
       }, 1000);
-    }, 2500);
+    }, 1750);
 
     return () => {
       clearTimeout(timer);
