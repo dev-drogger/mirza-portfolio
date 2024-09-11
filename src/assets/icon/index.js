@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import arrowUp from "./arrow-up.svg";
 import menu from "./menu.svg";
 import close from "./close.svg";
@@ -25,7 +24,6 @@ export {
   dh,
   mm,
   lsprlogo,
-  logo,
   menu,
   close,
   instagram,
