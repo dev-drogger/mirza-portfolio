@@ -151,7 +151,7 @@ function WorksPage() {
               <animated.div id="parent" style={pageTransitionProps}>
                 <div
                   id="title"
-                  className={`flex pl-[170px] font-outfit font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] justify-start items-center w-full h-full bg-primary`}
+                  className={`flex z-30 pl-[170px] font-outfit font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] justify-start items-center w-full h-full bg-primary`}
                 >
                   {currentFolderName}
                 </div>
