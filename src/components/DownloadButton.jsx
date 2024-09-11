@@ -1,7 +1,7 @@
 function DownloadButton({ title1, title2 }) {
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "./public/RESUME_MIRZAWAHYU.pdf";
+    link.href = "RESUME_MIRZAWAHYU.pdf";
     link.download = "RESUME_MIRZAWAHYU.pdf";
     link.click();
   };
