@@ -48,40 +48,43 @@ function WorksPage() {
     [currentPhotoSet]
   );
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const [fadeProps, setFadeProps] = useSpring(() => ({
     opacity: 1,
     config: { duration: 1000 },
   }));
 
   useEffect(() => {
-    const newIntervalId = setInterval(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+      // Start the fade transition immediately after loading
       setFadeProps({ opacity: 0 });
       setTimeout(() => {
         setCurrentImages((prev) => (prev + 1) % photosLength);
         setFadeProps({ opacity: 1 });
+        // Set up the interval after the initial transition
+        const newIntervalId = setInterval(() => {
+          setFadeProps({ opacity: 0 });
+          setTimeout(() => {
+            setCurrentImages((prev) => (prev + 1) % photosLength);
+            setFadeProps({ opacity: 1 });
+          }, 1000);
+        }, 4000);
+        intervalIdRef.current = newIntervalId;
       }, 1000);
-    }, 4000);
-    intervalIdRef.current = newIntervalId;
-    return () => clearInterval(newIntervalId);
-  }, [photosLength, setFadeProps]);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
+    };
+  }, [photosLength]);
 
   useEffect(() => {
     const img = new Image();
     img.src = currentPhotoSetMetadata[currentImages].path;
   }, [currentImages, currentPhotoSetMetadata]);
-
-  const setCurrentImagesCallback = useCallback(
-    (prev) => (prev + 1) % photosLength,
-    [photosLength]
-  );
 
   const [pageTransitionProps, setPageTransitionProps] = useSpring(() => ({
     opacity: 1,
@@ -117,18 +120,6 @@ function WorksPage() {
     () => changePhotoSet("prev"),
     [changePhotoSet]
   );
-
-  useEffect(() => {
-    const newIntervalId = setInterval(() => {
-      setFadeProps({ opacity: 0 });
-      setTimeout(() => {
-        setCurrentImages(setCurrentImagesCallback);
-        setFadeProps({ opacity: 1 });
-      }, 1000);
-    }, 4000);
-    intervalIdRef.current = newIntervalId;
-    return () => clearInterval(newIntervalId);
-  }, [photosLength, setCurrentImagesCallback, setFadeProps]);
 
   return (
     <>
