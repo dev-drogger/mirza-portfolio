@@ -27,7 +27,7 @@ export const landingCarousel = [
 
 export const navLinks = [
   {
-    id: "mirza-portfolio/",
+    id: "/",
     title: "Home",
   },
   {

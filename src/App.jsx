@@ -3,7 +3,7 @@ import { HomePage, AboutPage, WorksPage, ContactPage } from "./routes";
 
 const router = createBrowserRouter([
   {
-    path: "mirza-portfolio/",
+    path: "/",
     element: <HomePage />,
   },
   {
