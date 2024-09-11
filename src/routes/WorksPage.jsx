@@ -22,6 +22,7 @@ function WorksPage() {
   const [currentPhotoSet, setCurrentPhotoSet] = useState(0);
   const [loading, setLoading] = useState(true);
   const intervalIdRef = useRef(null);
+  const [shouldStartTransition, setShouldStartTransition] = useState(false);
 
   const photosLength = useMemo(
     () => photoSets[currentPhotoSet].metadata.length,
@@ -53,15 +54,37 @@ function WorksPage() {
     config: { duration: 1000 },
   }));
 
+  const [pageTransitionProps, setPageTransitionProps] = useSpring(() => ({
+    opacity: 0,
+    config: { duration: 1500 },
+  }));
+
   useEffect(() => {
+    const loadingTimer = setTimeout(() => {
+      setLoading(false);
+      setPageTransitionProps({ opacity: 1 });
+    }, 3000);
+
+    setShouldStartTransition(false);
+    const transitionTimer = setTimeout(() => {
+      setShouldStartTransition(true);
+    }, 6500);
+
+    return () => {
+      clearTimeout(transitionTimer);
+      clearTimeout(loadingTimer);
+    };
+  }, [currentPhotoSet, setPageTransitionProps]);
+
+  useEffect(() => {
+    if (!shouldStartTransition) return;
+
     const timer = setTimeout(() => {
       setLoading(false);
-      // Start the fade transition immediately after loading
       setFadeProps({ opacity: 0 });
       setTimeout(() => {
         setCurrentImages((prev) => (prev + 1) % photosLength);
         setFadeProps({ opacity: 1 });
-        // Set up the interval after the initial transition
         const newIntervalId = setInterval(() => {
           setFadeProps({ opacity: 0 });
           setTimeout(() => {
@@ -71,7 +94,7 @@ function WorksPage() {
         }, 4000);
         intervalIdRef.current = newIntervalId;
       }, 1000);
-    }, 2000);
+    }, 2500);
 
     return () => {
       clearTimeout(timer);
@@ -79,17 +102,12 @@ function WorksPage() {
         clearInterval(intervalIdRef.current);
       }
     };
-  }, [photosLength]);
+  }, [photosLength, setFadeProps, shouldStartTransition, currentPhotoSet]);
 
   useEffect(() => {
     const img = new Image();
     img.src = currentPhotoSetMetadata[currentImages].path;
   }, [currentImages, currentPhotoSetMetadata]);
-
-  const [pageTransitionProps, setPageTransitionProps] = useSpring(() => ({
-    opacity: 1,
-    config: { duration: 1500 },
-  }));
 
   const changePhotoSet = useCallback(
     (direction) => {
@@ -109,7 +127,7 @@ function WorksPage() {
         setPageTransitionProps({ opacity: 1 });
       }, 1500);
     },
-    [photoSets.length, setPageTransitionProps]
+    [setPageTransitionProps]
   );
 
   const nextPhotoSet = useCallback(
@@ -130,19 +148,24 @@ function WorksPage() {
         <div className="w-[100vw] h-[100vh] bg-primary z-30">
           <div>
             <div className="flex w-[100vw] h-[100vh]">
-              <animated.div
-                id="title"
-                style={pageTransitionProps}
-                className={`flex pl-[170px] font-outfit font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] justify-start items-center w-[50%] h-full bg-primary`}
-              >
-                {currentFolderName}
+              <animated.div id="parent" style={pageTransitionProps}>
+                <div
+                  id="title"
+                  className={`flex pl-[170px] font-outfit font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] justify-start items-center w-full h-full bg-primary`}
+                >
+                  {currentFolderName}
+                </div>
+                <animated.div
+                  style={fadeProps}
+                  className="w-[50%] absolute top-0 right-0 h-full"
+                >
+                  <MemoizedPhotoDisplay
+                    imagePath={currentImagePath}
+                    altText={`Image ${currentImages + 1}`}
+                  />
+                </animated.div>
               </animated.div>
-              <animated.div style={fadeProps} className="w-[50%]">
-                <MemoizedPhotoDisplay
-                  imagePath={currentImagePath}
-                  altText={currentImages + 1}
-                />
-              </animated.div>
+
               <div className="absolute flex items-end justify-end">
                 <MemoizedLibraryCard
                   setNext={nextPhotoSet}
