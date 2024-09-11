@@ -1,5 +1,4 @@
 import { socialMedia } from "../constants";
-import styles from "../constants/style";
 
 const SocialMediaLink = ({ link, isLast }) => (
   <a
@@ -7,6 +6,8 @@ const SocialMediaLink = ({ link, isLast }) => (
       isLast ? "mb-0" : "mb-6"
     } feature-card w-full border-blue border-2`}
     href={link.link}
+    target="_blank"
+    rel="noopener noreferrer"
   >
     <div className="size-[20%] flex items-center justify-center">
       <div className="w-[64px] h-[64px] rounded-full bg-dimBlue flex items-center justify-center ">
@@ -18,7 +19,7 @@ const SocialMediaLink = ({ link, isLast }) => (
         />
       </div>
     </div>
-    <div className="size-[20%] flex items-center justify-center">
+    <div className="size-[20%] flex items-center justify-start">
       <h4 className="font-outfit font-bold text-white text-[18px] leading-[23.4px]">
         {link.name}
       </h4>

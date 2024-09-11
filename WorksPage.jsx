@@ -8,8 +8,8 @@ import React, {
 } from "react";
 import { images } from "../constants/outputArray";
 import { NavBar, LibraryCard, Loading } from "../components";
-import PhotoDisplay from "../components/PhotoDisplay";
-import { useSpring, animated } from "@react-spring/web";
+import PhotoDisplay from "../components/PhotoCard";
+import { useSpring, animated } from "@react-spring/web"; // Add this import
 
 const photoSets = images;
 const LazyPhotos = React.lazy(() => import("../components/Photos"));
@@ -20,6 +20,8 @@ const MemoizedLibraryCard = React.memo(LibraryCard);
 function WorksPage() {
   const [currentImages, setCurrentImages] = useState(0);
   const [currentPhotoSet, setCurrentPhotoSet] = useState(0);
+  const [opacity, setOpacity] = useState(1);
+  const [pageTransition, setPageTransition] = useState("fade-in");
   const [loading, setLoading] = useState(true);
   const intervalIdRef = useRef(null);
 
@@ -33,21 +35,6 @@ function WorksPage() {
     [currentPhotoSet]
   );
 
-  const currentImagePath = useMemo(
-    () => currentPhotoSetMetadata[currentImages].path,
-    [currentPhotoSetMetadata, currentImages]
-  );
-
-  const currentFolderName = useMemo(
-    () => photoSets[currentPhotoSet].folder,
-    [currentPhotoSet]
-  );
-
-  const thumbnailPath = useMemo(
-    () => photoSets[currentPhotoSet].metadata[0].path,
-    [currentPhotoSet]
-  );
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -56,44 +43,29 @@ function WorksPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  const [fadeProps, setFadeProps] = useSpring(() => ({
-    opacity: 1,
-    config: { duration: 1000 },
-  }));
-
   useEffect(() => {
     const newIntervalId = setInterval(() => {
-      setFadeProps({ opacity: 0 });
+      setOpacity(0); // Start fade out
       setTimeout(() => {
         setCurrentImages((prev) => (prev + 1) % photosLength);
-        setFadeProps({ opacity: 1 });
+        setOpacity(1); // Start fade in
       }, 1000);
     }, 4000);
     intervalIdRef.current = newIntervalId;
     return () => clearInterval(newIntervalId);
-  }, [photosLength, setFadeProps]);
+  }, [photosLength]);
 
   useEffect(() => {
     const img = new Image();
     img.src = currentPhotoSetMetadata[currentImages].path;
   }, [currentImages, currentPhotoSetMetadata]);
 
-  const setCurrentImagesCallback = useCallback(
-    (prev) => (prev + 1) % photosLength,
-    [photosLength]
-  );
-
-  const [pageTransitionProps, setPageTransitionProps] = useSpring(() => ({
-    opacity: 1,
-    config: { duration: 1500 },
-  }));
-
   const changePhotoSet = useCallback(
     (direction) => {
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
       }
-      setPageTransitionProps({ opacity: 0 });
+      setPageTransition("fade-out bg-primary");
       setTimeout(() => {
         setCurrentPhotoSet((prev) => {
           const newPhotoSet =
@@ -103,10 +75,10 @@ function WorksPage() {
           setCurrentImages(0);
           return newPhotoSet;
         });
-        setPageTransitionProps({ opacity: 1 });
+        setPageTransition("fade-in bg-primary");
       }, 1500);
     },
-    [photoSets.length, setPageTransitionProps]
+    [photoSets.length]
   );
 
   const nextPhotoSet = useCallback(
@@ -118,17 +90,7 @@ function WorksPage() {
     [changePhotoSet]
   );
 
-  useEffect(() => {
-    const newIntervalId = setInterval(() => {
-      setFadeProps({ opacity: 0 });
-      setTimeout(() => {
-        setCurrentImages(setCurrentImagesCallback);
-        setFadeProps({ opacity: 1 });
-      }, 1000);
-    }, 4000);
-    intervalIdRef.current = newIntervalId;
-    return () => clearInterval(newIntervalId);
-  }, [photosLength, setCurrentImagesCallback, setFadeProps]);
+  const fadeProps = useSpring({ opacity: opacity });
 
   return (
     <>
@@ -139,16 +101,15 @@ function WorksPage() {
         <div className="w-[100vw] h-[100vh] bg-primary z-30">
           <div>
             <div className="flex w-[100vw] h-[100vh]">
-              <animated.div
+              <div
                 id="title"
-                style={pageTransitionProps}
-                className={`flex pl-[170px] font-outfit font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] justify-start items-center w-[50%] h-full bg-primary`}
+                className={`flex pl-[170px] ${pageTransition} font-outfit font-semibold xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px] justify-start items-center w-[50%] h-full bg-primary`}
               >
-                {currentFolderName}
-              </animated.div>
+                {photoSets[currentPhotoSet].folder}
+              </div>
               <animated.div style={fadeProps} className="w-[50%]">
                 <MemoizedPhotoDisplay
-                  imagePath={currentImagePath}
+                  imagePath={currentPhotoSetMetadata[currentImages].path}
                   altText={currentImages + 1}
                 />
               </animated.div>
@@ -156,13 +117,13 @@ function WorksPage() {
                 <MemoizedLibraryCard
                   setNext={nextPhotoSet}
                   setPrev={prevPhotoSet}
-                  thumbnail={thumbnailPath}
+                  thumbnail={photoSets[currentPhotoSet].metadata[0].path}
                   length={photoSets.length}
                 />
               </div>
             </div>
 
-            <Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
               <LazyPhotos
                 currentLibrary={currentPhotoSetMetadata}
                 currentImage={currentPhotoSetMetadata[0].path}

@@ -14,8 +14,10 @@ import whatsapp from "./whatsApp.png";
 import linkedin from "./linkedin.png";
 import emoji from "./3d-emoji.png";
 import drive from "./drive.webp";
+import github from "./github.png";
 
 export {
+  github,
   drive,
   emoji,
   whatsapp,

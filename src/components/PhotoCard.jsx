@@ -10,7 +10,7 @@ function PhotoCard({ imgURL, changeLandingImage, landingImage }) {
     <div ref={ref}>
       {isIntersecting && (
         <div
-          className={`flex border-2 justify-center items-center rounded-xl py-1 ${
+          className={`flex border-2 justify-center items-center rounded-xl ${
             landingImage === imgURL ? "border-coral-red" : "border-transparent"
           } cursor-pointer max-sm:flex-1`}
           onClick={changeLandingImage}
@@ -21,7 +21,7 @@ function PhotoCard({ imgURL, changeLandingImage, landingImage }) {
             alt="image"
             width={350}
             height={103}
-            className="object-contain flex overflow-hidden sm:w-52 sm:h-52"
+            className="object-cover flex overflow-hidden sm:w-52 sm:h-52"
           />
         </div>
       )}

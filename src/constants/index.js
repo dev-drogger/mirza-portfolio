@@ -8,6 +8,7 @@ import {
   mm,
   dh,
   drive,
+  github,
 } from "../assets/icon";
 
 export const landingCarousel = [
@@ -150,6 +151,12 @@ export const socialMedia = [
   },
   {
     id: "social-media-4",
+    icon: github,
+    name: "GitHub",
+    link: "https://github.com/dev-drogger",
+  },
+  {
+    id: "social-media-5",
     icon: drive,
     name: "More Portfolio",
     link: "https://drive.google.com/drive/folders/1K6Krx1ZIWlaX2nQ1oCeKi9Iu5pl4eXDs?usp=drive_link",

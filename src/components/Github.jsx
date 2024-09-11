@@ -19,7 +19,10 @@ function Github() {
           area of improvement so let&apos;s check it out!
         </p>
 
-        <Button title={"Open Github"} path="" />
+        <Button
+          title="Open Github"
+          path="https://github.com/dev-drogger/mirza-portfolio"
+        />
       </div>
     </div>
   );
