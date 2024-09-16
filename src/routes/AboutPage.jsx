@@ -1,17 +1,15 @@
-import { experiences, chunkArray, job } from "../constants";
 import {
-  AboutDetails,
+  Works,
   NavBar,
   Heading,
   DownloadButton,
   Loading,
+  Education,
 } from "../components";
 import styles from "../constants/style";
-import { lsprlogo } from "../assets/icon";
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const AboutPage = () => {
-  const experienceChunks = useMemo(() => chunkArray(experiences, 3), []);
   const [loading, setLoading] = useState(true);
   const [fade, setFade] = useState("");
 
@@ -30,52 +28,25 @@ const AboutPage = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className={`bg-primary w-full h-full ${fade}`}>
-          <Heading title1="Educational" title2="Background" />
+        <main
+          className={`bg-primary w-full overflow-hidden mt-20 max-sm:mt-0 ${fade}`}
+        >
+          <section>
+            <div className={`${styles.flexStart} bg-primary`}>
+              <div className={`${styles.boxWidth} z-30`}>
+                <Heading title1="Educational" title2="Background" />
 
-          <div
-            className={`flex-1 ${styles.flexStart} flex-col mb-[350px] xl:px-0 sm:px-16 mx-[100px]`}
-          >
-            <div className="flex-1 flex flex-row gap-32 items-center justify-center">
-              <img
-                loading="lazy"
-                src={lsprlogo}
-                alt="logo"
-                className="w-[200px] h-[200px]"
-              />
-              <div className="flex flex-col">
-                <h2 className={`${styles.heading2}`}>
-                  London School of Public Relations Jakarta
-                </h2>
-                <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
-                  Public Relations and Digital Communication Major
-                </p>
+                <Education />
 
-                <div className="absolute z-[3] w-[50%] h-[50%] rounded-full white__gradient" />
+                <Heading title1="Professional" title2="Background" />
+
+                <Works />
+
+                <DownloadButton title1="Download" title2="my resume" />
               </div>
             </div>
-          </div>
-
-          <Heading title1="Professional" title2="Background" />
-
-          <div className="w-[100vw] px-[100px]">
-            {job.map((_, index) => {
-              const currentJob = job[index];
-              return (
-                <div key={index}>
-                  <AboutDetails
-                    experiences={experienceChunks[index] || []}
-                    company={currentJob.company}
-                    position={currentJob.position}
-                    logo={currentJob.logo}
-                  />
-                </div>
-              );
-            })}
-          </div>
-
-          <DownloadButton title1="Download" title2="my resume" />
-        </div>
+          </section>
+        </main>
       )}
     </>
   );

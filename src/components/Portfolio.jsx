@@ -9,17 +9,17 @@ function Portfolio() {
 
   return (
     <div
-      className={`${layout.sectionReverse} px-[170px] space-x-52 bg-primary`}
+      className={`${layout.sectionReverse} max-sm:justify-center max-sm:items-center px-[170px] max-sm:px-0 space-x-52 max-sm:space-x-0 max-sm:h-[100vh] bg-primary`}
     >
-      <div className="relative flex-1 flex flex-col gap-10 justify-center items-center xl:min-h-screen max-xl:py-40">
+      <div className="relative flex-1 flex flex-col gap-10 max-sm:gap-2 justify-center max-sm:justify-start items-center xl:min-h-screen max-xl:py-40">
         <img
           src={landingImage}
           loading="lazy"
           alt={`Portfolio image ${landingImage + 1}`}
-          className="w-full h-full object-contain flex z-10"
+          className="w-full h-[60%] max-sm:w-[275px] object-contain flex z-10"
         />
 
-        <div className="flex sm:gap-6 gap-4 items-center justify-center">
+        <div className="flex sm:gap-6 gap-4 items-center justify-center max-sm:w-[300px]">
           {landingCarousel.map((image, index) => (
             <PhotoCard
               key={image.id}
@@ -35,12 +35,17 @@ function Portfolio() {
         <div className="absolute z-[0] w-[50%] h-[50%] -left-1/2 bottom-0 rounded-full pink__gradient" />
       </div>
 
-      <div className={`${layout.sectionInfo} relative z-50`}>
-        <h2 className={styles.heading2}>
-          Do you think I am <br className="sm:block hidden" /> a Front End
-          Developer?
+      <div
+        className={`${layout.sectionInfo} max-sm:justify-center max-sm:items-center relative z-50`}
+      >
+        <h2
+          className={`${styles.heading2} max-sm:text-[32px] max-sm:text-center max-sm:leading-[3rem]`}
+        >
+          Do you think I am a <br></br>Front End Developer?
         </h2>
-        <p className={`${styles.paragraph} max-w-[470px] mt-5`}>
+        <p
+          className={`${styles.paragraph} max-w-[470px] max-sm:w-[275px] mt-5 max-sm:text-center`}
+        >
           Yes, I do learn about front-end, especially JavaScript and other
           programming languages, and deploy this website on my own. But
           actually, I am a{" "}

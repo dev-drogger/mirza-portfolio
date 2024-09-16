@@ -3,16 +3,19 @@ import styles, { layout } from "../constants/style";
 
 const AboutDetails = ({ experiences, position, company, logo }) => (
   <section
-    className={`${layout.section} ${styles.flexCenter} h-[100vh] ${styles.boxWidth}  ${styles.paddingX}`}
+    className={`${layout.section} ${styles.flexCenter} h-[100vh] max-sm:h-full ${styles.boxWidth} ${styles.paddingX} max-sm:py-0`}
   >
-    <div className={layout.sectionInfo}>
+    <div className={`${layout.sectionInfo} max-sm:items-center`}>
       <div className="flex w-[200px] h-[120px] items-center justify-center">
         <img loading="lazy" src={logo} alt="logo" className="object-contain" />
       </div>
 
-      <h2 className={styles.heading2}>{company}</h2>
+      <h2
+        className={`${styles.heading2} max-sm:text-center max-sm:text-[30px] max-sm:leading-[3rem]`}
+      >
+        {company}
+      </h2>
       <p className={`${styles.paragraph} max-w-[470px] mt-5`}>{position}</p>
-
     </div>
 
     <div className={`${layout.sectionImg} flex flex-col space-y-6 items-start`}>

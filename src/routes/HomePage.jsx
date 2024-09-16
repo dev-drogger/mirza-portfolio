@@ -32,7 +32,9 @@ function HomePage() {
       {loading ? (
         <Loading />
       ) : (
-        <main className={`bg-primary w-full overflow-hidden mt-20 ${fade}`}>
+        <main
+          className={`bg-primary w-full overflow-hidden mt-20 max-sm:mt-0 ${fade}`}
+        >
           <ScrollToTop />
 
           <section>

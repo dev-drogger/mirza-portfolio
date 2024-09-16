@@ -14,9 +14,13 @@ import SocialMedia from "./SocialMedia";
 import ScrollToTop from "./ScrollToTop";
 import App from "../App";
 import Loading from "./Loading";
+import Education from "./Education";
+import Works from "./Works";
 import useImagePreloader from "./useImagePreloader";
 
 export {
+  Works,
+  Education,
   useImagePreloader,
   Loading,
   App,

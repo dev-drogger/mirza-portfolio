@@ -8,7 +8,7 @@ function NavBar() {
 
   return (
     <div
-      className={`px-[170px] bg-primary overflow-hidden fixed z-50 inset-x-0 top-0 `}
+      className={`px-[170px] max-sm:px-14 bg-primary overflow-hidden fixed z-50 inset-x-0 top-0 `}
     >
       <div className="w-full flex py-6 justify-between items-center">
         <Link to="/">
@@ -41,7 +41,7 @@ function NavBar() {
           <div
             className={`${
               toggle ? "flex" : "hidden"
-            } p-6 absolute bg-black-gradient top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
+            } p-6 fixed bg-black-gradient top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
           >
             <ul className="list-none flex flex-col justify-end items-center flex-1">
               {navLinks.map((nav, index) => (
