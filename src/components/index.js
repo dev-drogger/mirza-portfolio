@@ -17,11 +17,17 @@ import Loading from "./Loading";
 import Education from "./Education";
 import Works from "./Works";
 import useImagePreloader from "./useImagePreloader";
+import UseLoading from "./UseLoading";
+import UseImageTransition from "./UseImageTransition";
+import UsePhotoSets from "./UsePhotoSets";
 
 export {
   Works,
   Education,
   useImagePreloader,
+  UseImageTransition,
+  UseLoading,
+  UsePhotoSets,
   Loading,
   App,
   ScrollToTop,
