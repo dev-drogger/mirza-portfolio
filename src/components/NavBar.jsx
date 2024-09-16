@@ -30,7 +30,7 @@ function NavBar() {
           ))}
         </ul>
 
-        <div className="sm:hidden flex flex-1 justify-end items-center">
+        <div className="sm:hidden flex justify-end items-center">
           <img
             src={toggle ? close : menu}
             alt="menu"
@@ -41,7 +41,7 @@ function NavBar() {
           <div
             className={`${
               toggle ? "flex" : "hidden"
-            } p-6 fixed bg-black-gradient top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
+            } p-6 fixed bg-black-gradient top-20 right-0 mx-4 my-2 min-w-[140px] z-100 rounded-xl sidebar`}
           >
             <ul className="list-none flex flex-col justify-end items-center flex-1">
               {navLinks.map((nav, index) => (

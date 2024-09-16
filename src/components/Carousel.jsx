@@ -22,45 +22,49 @@ const Carousel = ({ cards, setPrev, setNext }) => {
   };
 
   return (
-    <div className="carousel">
-      <button className="nav left" onClick={handlePrev} disabled={active === 0}>
-        <img src={chevLeft} alt="" loading="lazy" />
-      </button>
+    <div className="overflow-x-hidden w-full">
+      <div className="carousel">
+        <button className="nav left" onClick={handlePrev} disabled={active === 0}>
+          <img src={chevLeft} alt="" loading="lazy" />
+        </button>
 
-      {cards
-        .slice(
-          Math.max(0, active - MAX_VISIBILITY),
-          Math.min(count, active + MAX_VISIBILITY + 1)
-        )
-        .map((_, i) => {
-          const cardIndex = i + Math.max(0, active - MAX_VISIBILITY);
-          return (
-            <div
-              key={cardIndex}
-              className="card-container"
-              style={{
-                "--active": cardIndex === active ? 1 : 0,
-                "--offset": (active - cardIndex) / 3,
-                "--direction": Math.sign(active - cardIndex),
-                "--abs-offset": Math.abs(active - cardIndex) / 3,
-                opacity: active === cardIndex ? 1 : 0.5,
-                pointerEvents: active === cardIndex ? "auto" : "none",
-              }}
-            >
-              <Card index={cardIndex} />
-            </div>
-          );
-        })}
+        {cards
+          .slice(
+            Math.max(0, active - MAX_VISIBILITY),
+            Math.min(count, active + MAX_VISIBILITY + 1)
+          )
+          .map((_, i) => {
+            const cardIndex = i + Math.max(0, active - MAX_VISIBILITY);
+            return (
+              <div
+                key={cardIndex}
+                className="card-container"
+                style={{
+                  "--active": cardIndex === active ? 1 : 0,
+                  "--offset": (active - cardIndex) / 3,
+                  "--direction": Math.sign(active - cardIndex),
+                  "--abs-offset": Math.abs(active - cardIndex) / 3,
+                  opacity: active === cardIndex ? 1 : 0.5,
+                  pointerEvents: active === cardIndex ? "auto" : "none",
+                }}
+              >
+                <Card index={cardIndex} />
+              </div>
+            );
+          })}
 
-      <button
-        className="nav right"
-        onClick={handleNext}
-        disabled={active === count - 1}
-      >
-        <img src={chevRight} alt="" loading="lazy" />
-      </button>
+        <button
+          className="nav right"
+          onClick={handleNext}
+          disabled={active === count - 1}
+        >
+          <img src={chevRight} alt="" loading="lazy" />
+        </button>
+      </div>
+
     </div>
   );
+
 };
 
 export default Carousel;

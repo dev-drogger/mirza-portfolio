@@ -49,27 +49,30 @@ function WorksPage() {
 
   return (
     <>
-      <NavBar />
+      <nav>
+        <NavBar />
+      </nav>
+
       {loading ? (
         <Loading />
       ) : (
-        <div className="w-[100vw] h-[100vh] bg-primary z-30">
+        <div className="w-[100vw] h-[100vh] bg-primary z-30 max-sm:mt-20">
           <div>
-            <div className="flex w-[100vw] h-[100vh]">
+            <div className="flex w-[100vw] h-[100vh] max-sm:py-10">
               <animated.div
                 id="parent"
                 style={pageTransitionProps}
-                className="max-sm:flex max-sm:items-start max-sm:justify-center"
+                className="max-sm:flex max-sm:items-center max-sm:justify-end max-sm:flex-col-reverse max-sm:w-[100vw]"
               >
                 <div
                   id="title"
-                  className={`flex z-30 max-sm:h-[10vh] max-sm:w-full pl-[170px] max-sm:absolute max-sm:top-48 max-sm:pl-0 max-sm:text-center font-outfit font-semibold max-sm:text-[20px] xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] max-sm:leading-[3rem] leading-[66.8px] justify-start max-sm:justify-center items-center w-[650px] h-full bg-primary`}
+                  className={`flex z-20 max-sm:h-[15vh] max-sm:w-[250px] pl-[170px] max-sm:pl-0 max-sm:text-center font-outfit font-semibold max-sm:text-[30px] xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] max-sm:leading-[3rem] leading-[66.8px] justify-start max-sm:justify-center items-center w-[650px] h-full`}
                 >
                   {currentFolderName}
                 </div>
                 <animated.div
                   style={fadeProps}
-                  className="w-[50%] absolute max-sm:relative max-sm:w-full top-0 right-0 h-full max-sm:h-[50vh]"
+                  className="w-[50%] overflow-hidden absolute max-sm:relative max-sm:w-full top-0 right-0 h-[100%] max-sm:h-[35vh] max-sm:bg-gradient-to-t z-0"
                 >
                   <MemoizedPhotoDisplay
                     imagePath={currentImagePath}
@@ -77,15 +80,15 @@ function WorksPage() {
                   />
                 </animated.div>
               </animated.div>
-            </div>
 
-            <div className="absolute z-50 flex items-end justify-end top-0">
-              <MemoizedLibraryCard
-                setNext={nextPhotoSet}
-                setPrev={prevPhotoSet}
-                thumbnail={thumbnailPath}
-                length={images.length}
-              />
+              <div className="absolute top-0 max-sm:top-[3rem]">
+                <MemoizedLibraryCard
+                  setNext={nextPhotoSet}
+                  setPrev={prevPhotoSet}
+                  thumbnail={thumbnailPath}
+                  length={images.length}
+                />
+              </div>
             </div>
 
             <Suspense>

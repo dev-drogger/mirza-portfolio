@@ -23,14 +23,18 @@ function ContactPage() {
         <Loading />
       ) : (
         <section
-          className={`  bg-primary flex items-center justify-center w-[100vw] h-[100vh] ${fade}`}
+          className={`bg-primary flex items-center justify-center w-[100vw] h-[100vh] ${fade}`}
         >
-          <Velustro />
+          <div className="max-sm:size-full md:w-[100vw] md:h-[100vh]">
+            <Velustro />
+          </div>
 
-          <div className="absolute items-center justify-between px-[170px] flex flex-row w-full">
+          <div className="absolute max-sm:flex-col max-sm:gap-10 items-center justify-between px-[170px] max-sm:px-0 flex flex-row w-full mt-16">
             <div className="flex">
               <div className={`${layout.sectionInfo}`}>
-                <h2 className={` ${styles.heading2}`}>
+                <h2
+                  className={` ${styles.heading2} max-sm:text-[30px] max-sm:text-center`}
+                >
                   Thank you for <br />
                   visiting my site
                 </h2>
@@ -41,7 +45,7 @@ function ContactPage() {
               </div>
             </div>
 
-            <div className={`flex flex-col w-[500px]`}>
+            <div className={`flex flex-col w-[500px] max-sm:w-[300px]`}>
               <SocialMedia />
             </div>
           </div>

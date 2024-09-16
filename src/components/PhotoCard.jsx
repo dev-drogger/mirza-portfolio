@@ -21,7 +21,7 @@ function PhotoCard({ imgURL, changeLandingImage, landingImage }) {
             alt="image"
             width={350}
             height={103}
-            className="object-cover flex overflow-hidden sm:w-52 sm:h-52"
+            className="object-cover max-sm:h-[100px] flex overflow-hidden sm:w-52 sm:h-52"
           />
         </div>
       )}

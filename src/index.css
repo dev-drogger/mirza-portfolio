@@ -190,8 +190,9 @@ body,
 
 .carousel {
   position: relative;
-  align-items: end;
-  justify-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
   perspective: 15000px;
@@ -203,12 +204,12 @@ body,
   align-items: center;
   margin-top: 575px;
   justify-content: center;
-  width: 100%;
+  width: 50%;
   height: 30%;
   transform: rotateY(calc(var(--offset) * 50deg))
     scaleY(calc(1 + var(--abs-offset) * -0.4))
     translateZ(calc(var(--abs-offset) * -30rem))
-    translateX(calc(var(--direction) * -5rem));
+    translateX(calc(var(--direction) * -1rem));
   filter: blur(calc(var(--abs-offset) * 0.3rem));
   transition: transform 0.3s ease-out, filter 0.3s ease-out;
   opacity: 0;
