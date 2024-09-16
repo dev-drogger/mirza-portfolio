@@ -58,7 +58,7 @@ function WorksPage() {
       ) : (
         <div className="w-[100vw] h-[100vh] bg-primary z-30 max-sm:mt-20">
           <div>
-            <div className="flex w-[100vw] h-[100vh] max-sm:py-10">
+            <div className="flex w-[100vw] h-[100vh]">
               <animated.div
                 id="parent"
                 style={pageTransitionProps}
@@ -81,7 +81,7 @@ function WorksPage() {
                 </animated.div>
               </animated.div>
 
-              <div className="absolute top-0 max-sm:top-[3rem]">
+              <div className="absolute top-0 max-sm:top-[2rem]">
                 <MemoizedLibraryCard
                   setNext={nextPhotoSet}
                   setPrev={prevPhotoSet}

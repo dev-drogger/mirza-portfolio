@@ -7,7 +7,7 @@ function Github() {
       className={`px-[170px] max-sm:w-[100vw] max-sm:h-[75vh] max-sm:flex max-sm:items-start max-sm:justify-center max-sm:px-0 mb-16 max-sm:mb-0 bg-gradient-to-t from-primary via-primary/90 z-30 w-full`}
     >
       <div className="flex flex-1 flex-col items-center max-sm:justify-center">
-        <h2 className="font-outfit text-center font-semibold max-sm:text-[32px] xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] leading-[66.8px]">
+        <h2 className="font-outfit text-center font-semibold max-sm:text-[32px] xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] max-sm:leading-[3rem] leading-[66.8px]">
           I took 52 hours course <br />
           to build this website.
         </h2>

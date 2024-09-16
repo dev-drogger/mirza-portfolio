@@ -23,9 +23,9 @@ const AboutDetails = ({ experiences, position, company, logo }) => (
         <ExperienceCard key={experience.id} {...experience} index={index} />
       ))}
 
-      <div className="absolute z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
-      <div className="absolute z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40" />
-      <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
+      <div className="absolute hidden z-[0] w-[40%] h-[35%] top-0 pink__gradient" />
+      <div className="absolute hidden z-[1] w-[80%] h-[80%] rounded-full white__gradient bottom-40" />
+      <div className="absolute z-[0] hidden w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
     </div>
   </section>
 );

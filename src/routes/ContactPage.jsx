@@ -33,7 +33,7 @@ function ContactPage() {
             <div className="flex">
               <div className={`${layout.sectionInfo}`}>
                 <h2
-                  className={` ${styles.heading2} max-sm:text-[30px] max-sm:text-center`}
+                  className={` ${styles.heading2} max-sm:text-[30px] max-sm:text-center max-sm:leading-[3rem]`}
                 >
                   Thank you for <br />
                   visiting my site
