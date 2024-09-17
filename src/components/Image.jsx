@@ -1,19 +1,14 @@
 import React, { Suspense, useState, useEffect } from "react";
 
-const LazyPhotoCard = React.lazy(() => import("./PhotoCard"));
+const LazyImageCard = React.lazy(() => import("./ImageCard"));
 
-function Photos({ currentLibrary, currentImage }) {
+function Image({ currentLibrary, currentImage }) {
   const [landingImage, setLandingImage] = useState(currentImage);
   const [fadeClass, setFadeClass] = useState("");
 
   useEffect(() => {
     setLandingImage(currentImage);
   }, [currentImage]);
-
-  useEffect(() => {
-    // Reset landing image when currentLibrary changes
-    setLandingImage(currentLibrary[0].path);
-  }, [currentLibrary]);
 
   const handleImageChange = (newImagePath) => {
     setFadeClass("fade-out");
@@ -32,7 +27,7 @@ function Photos({ currentLibrary, currentImage }) {
               key={landingImage}
               src={landingImage}
               loading="lazy"
-              alt="photo"
+              alt="Image"
               className={`w-[100%] h-[100%] object-contain ${fadeClass}`}
             />
           </div>
@@ -41,7 +36,7 @@ function Photos({ currentLibrary, currentImage }) {
         <div className="bg-primary grid grid-cols-4 max-sm:grid-cols-3 w-full h-full px-44 max-sm:px-14 overflow-hidden gap-4 sm:gap-6">
           {currentLibrary.map((item, index) => (
             <Suspense key={item.path}>
-              <LazyPhotoCard
+              <LazyImageCard
                 index={index}
                 imgURL={item.path}
                 changeLandingImage={() => handleImageChange(item.path)}
@@ -55,4 +50,4 @@ function Photos({ currentLibrary, currentImage }) {
   );
 }
 
-export default Photos;
+export default Image;

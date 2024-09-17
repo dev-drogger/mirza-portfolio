@@ -1,58 +1,43 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { NavBar, LibraryCard, Loading } from "../components";
-import PhotoDisplay from "../components/PhotoDisplay";
-import { useSpring, animated } from "@react-spring/web";
-import { UseLoading, UseImageTransition, UsePhotoSets } from "../components";
-import { images } from "../constants/outputArray";
+import ImageDisplay from "../components/ImageDisplay";
+import { animated } from "@react-spring/web";
+import usePageLoading from "../components/usePageLoading";
+import useImageCarousel from "../components/useImageCarousel";
+import useChangeProject from "../components/useChangeProject";
 
-const LazyPhotos = React.lazy(() => import("../components/Photos"));
+const LazyImage = React.lazy(() => import("../components/Image"));
 
-const MemoizedPhotoDisplay = React.memo(PhotoDisplay);
+const MemoizedImageDisplay = React.memo(ImageDisplay);
 const MemoizedLibraryCard = React.memo(LibraryCard);
 
 function WorksPage() {
+  const { loading, pageAnimation, startCarousel } = usePageLoading();
+
   const {
-    currentPhotoSet,
-    currentImages,
-    setCurrentImages,
-    photosLength,
-    currentPhotoSetMetadata,
+    imageLength,
+    currentProjectMetadata,
+    currentProjectName,
     currentImagePath,
-    currentFolderName,
     thumbnailPath,
-    nextPhotoSet,
-    prevPhotoSet,
-  } = UsePhotoSets();
+    nextProject,
+    prevProject,
+    project,
+    currentImage,
+    setCurrentImage,
+    currentProject,
+  } = useChangeProject();
 
-  const { loading, shouldStartTransition } = UseLoading();
-
-  const fadeProps = UseImageTransition(
-    photosLength,
-    shouldStartTransition,
-    currentPhotoSet,
-    setCurrentImages
+  const fade = useImageCarousel(
+    imageLength,
+    startCarousel,
+    setCurrentImage,
+    currentProject
   );
-
-  const [pageTransitionProps, setPageTransitionProps] = useSpring(() => ({
-    opacity: 0,
-    config: { duration: 1500 },
-  }));
-
-  useEffect(() => {
-    setPageTransitionProps({ opacity: 1 });
-  }, [currentPhotoSet, setPageTransitionProps]);
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = currentPhotoSetMetadata[currentImages].path;
-  }, [currentImages, currentPhotoSetMetadata]);
 
   return (
     <>
-      <nav>
-        <NavBar />
-      </nav>
-
+      <NavBar />
       {loading ? (
         <Loading />
       ) : (
@@ -61,40 +46,40 @@ function WorksPage() {
             <div className="flex w-[100vw] h-[100vh]">
               <animated.div
                 id="parent"
-                style={pageTransitionProps}
+                style={pageAnimation}
                 className="max-sm:flex max-sm:items-center max-sm:justify-end max-sm:flex-col-reverse max-sm:w-[100vw]"
               >
                 <div
                   id="title"
-                  className={`flex z-20 max-sm:h-[15vh] max-sm:w-[250px] pl-[170px] max-sm:pl-0 max-sm:text-center font-outfit font-semibold max-sm:text-[30px] xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] max-sm:leading-[3rem] leading-[66.8px] justify-start max-sm:justify-center items-center w-[650px] h-full`}
+                  className={`flex z-30 max-sm:h-[15vh] max-sm:w-[250px] pl-[170px] max-sm:pl-0 max-sm:text-center font-outfit font-semibold max-sm:text-[30px] xs:text-[48px] text-[40px] text-white xs:leading-[76.8px] max-sm:leading-[3rem] leading-[66.8px] justify-start max-sm:justify-center items-center w-[650px] h-full`}
                 >
-                  {currentFolderName}
+                  {currentProjectName}
                 </div>
                 <animated.div
-                  style={fadeProps}
-                  className="w-[50%] overflow-hidden absolute max-sm:relative max-sm:w-full top-0 right-0 h-[100%] max-sm:h-[35vh] max-sm:bg-gradient-to-t z-0"
+                  style={fade}
+                  className="w-[50%] absolute top-0 right-0 h-[100%] max-sm:relative max-sm:w-full max-sm:h-[35vh] max-sm:bg-gradient-to-t z-0"
                 >
-                  <MemoizedPhotoDisplay
+                  <MemoizedImageDisplay
                     imagePath={currentImagePath}
-                    altText={`Image ${currentImages + 1}`}
+                    altText={`Image ${currentImage + 1}`}
                   />
                 </animated.div>
               </animated.div>
 
-              <div className="absolute top-0 max-sm:top-[2rem]">
+              <div className="absolute top-0 max-sm:top-[1.5rem]">
                 <MemoizedLibraryCard
-                  setNext={nextPhotoSet}
-                  setPrev={prevPhotoSet}
+                  setNext={nextProject}
+                  setPrev={prevProject}
                   thumbnail={thumbnailPath}
-                  length={images.length}
+                  length={project.length}
                 />
               </div>
             </div>
 
             <Suspense>
-              <LazyPhotos
-                currentLibrary={currentPhotoSetMetadata}
-                currentImage={currentPhotoSetMetadata[0].path}
+              <LazyImage
+                currentLibrary={currentProjectMetadata}
+                currentImage={currentProjectMetadata[0].path}
               />
             </Suspense>
 

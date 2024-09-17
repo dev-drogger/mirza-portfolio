@@ -7,6 +7,7 @@ const MAX_VISIBILITY = 2;
 const Carousel = ({ cards, setPrev, setNext }) => {
   const [active, setActive] = useState(0);
   const count = cards.length;
+  const [fadeClass, setFadeClass] = useState("");
 
   const next = () => setActive((prev) => Math.min(prev + 1, count - 1));
   const prev = () => setActive((prev) => Math.max(prev - 1, 0));
@@ -14,17 +15,29 @@ const Carousel = ({ cards, setPrev, setNext }) => {
   const handlePrev = () => {
     prev();
     setPrev();
+    setFadeClass("fade-out");
+    setTimeout(() => {
+      setFadeClass("fade-in");
+    }, 300);
   };
 
   const handleNext = () => {
     next();
     setNext();
+    setFadeClass("fade-out");
+    setTimeout(() => {
+      setFadeClass("fade-in");
+    }, 300);
   };
 
   return (
     <div className="overflow-x-hidden w-full">
       <div className="carousel">
-        <button className="nav left" onClick={handlePrev} disabled={active === 0}>
+        <button
+          className="nav left"
+          onClick={handlePrev}
+          disabled={active === 0}
+        >
           <img src={chevLeft} alt="" loading="lazy" />
         </button>
 
@@ -38,7 +51,7 @@ const Carousel = ({ cards, setPrev, setNext }) => {
             return (
               <div
                 key={cardIndex}
-                className="card-container"
+                className={`card-container ${fadeClass}`}
                 style={{
                   "--active": cardIndex === active ? 1 : 0,
                   "--offset": (active - cardIndex) / 3,
@@ -61,10 +74,8 @@ const Carousel = ({ cards, setPrev, setNext }) => {
           <img src={chevRight} alt="" loading="lazy" />
         </button>
       </div>
-
     </div>
   );
-
 };
 
 export default Carousel;

@@ -1,6 +1,6 @@
 import useIntersectionObserver from "./useIntersectionObserver";
 
-function PhotoCard({ imgURL, changeLandingImage, landingImage }) {
+function ImageCard({ imgURL, changeLandingImage, landingImage }) {
   const [ref, isIntersecting] = useIntersectionObserver({
     threshold: 0.1,
     triggerOnce: true,
@@ -29,4 +29,4 @@ function PhotoCard({ imgURL, changeLandingImage, landingImage }) {
   );
 }
 
-export default PhotoCard;
+export default ImageCard;

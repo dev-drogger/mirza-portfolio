@@ -1,4 +1,4 @@
-function PhotoDisplay({ imagePath, altText, animation }) {
+function ImageDisplay({ imagePath, altText, animation }) {
   return (
     <div id="image" className="relative flex w-full h-full">
       {imagePath ? (
@@ -16,4 +16,4 @@ function PhotoDisplay({ imagePath, altText, animation }) {
   );
 }
 
-export default PhotoDisplay;
+export default ImageDisplay;

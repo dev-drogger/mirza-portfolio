@@ -28,7 +28,7 @@ function Hero() {
             <span className="text-gradient"> Mirza</span>{" "}
           </h1>
 
-          <div className="flex md:mr-4 mr-0">
+          <div className="ss:flex hidden md:mr-4 mr-0">
             <Link
               to="github-heading"
               spy={true}

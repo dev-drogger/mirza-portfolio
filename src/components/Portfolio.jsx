@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles, { layout } from "../constants/style";
 import { landingCarousel } from "../constants";
 import Button from "./Button";
-import PhotoCard from "./PhotoCard";
+import ImageCard from "./ImageCard";
 
 function Portfolio() {
   const [landingImage, setLandingImage] = useState(landingCarousel[0].image);
@@ -21,7 +21,7 @@ function Portfolio() {
 
         <div className="flex sm:gap-6 gap-4 items-center justify-center max-sm:w-[300px]">
           {landingCarousel.map((image, index) => (
-            <PhotoCard
+            <ImageCard
               key={image.id}
               index={index}
               imgURL={image.image}
