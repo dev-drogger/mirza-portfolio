@@ -1,7 +1,7 @@
 import { images } from "../constants/outputArray";
 import { useState, useMemo, useCallback } from "react";
 
-function useChangeProject() {
+function useChangeProject(setPageAnimation, intervalIdRef) {
   const project = images;
   const [currentProject, setCurrentProject] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
@@ -17,7 +17,7 @@ function useChangeProject() {
   );
 
   const currentImagePath = useMemo(() => {
-    if (currentImage >= 0 && currentImage < currentProjectMetadata.length) {
+    if (currentImage >= 0) {
       return currentProjectMetadata[currentImage].path;
     }
     return null; // or a default path
@@ -35,6 +35,10 @@ function useChangeProject() {
 
   const changeProject = useCallback(
     (direction) => {
+      if (intervalIdRef.current) {
+        clearInterval(intervalIdRef.current);
+      }
+      setPageAnimation({ opacity: 0 });
       setCurrentProject((prev) => {
         const newProject =
           direction === "next"
@@ -43,8 +47,11 @@ function useChangeProject() {
         setCurrentImage(0);
         return newProject;
       });
+      setTimeout(() => {
+        setPageAnimation({ opacity: 1 });
+      }, 800);
     },
-    [project.length]
+    [setPageAnimation, intervalIdRef, project.length]
   );
 
   const nextProject = useCallback(() => changeProject("next"), [changeProject]);

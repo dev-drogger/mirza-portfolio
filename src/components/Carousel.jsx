@@ -1,33 +1,26 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { chevRight, chevLeft } from "../assets/icon";
 import Card from "./Card.jsx";
+import { ProjectContext } from "./ProjectContext";
 
 const MAX_VISIBILITY = 2;
 
-const Carousel = ({ cards, setPrev, setNext }) => {
+const Carousel = ({ cards }) => {
   const [active, setActive] = useState(0);
   const count = cards.length;
-  const [fadeClass, setFadeClass] = useState("");
+  const { nextProject, prevProject } = useContext(ProjectContext);
 
   const next = () => setActive((prev) => Math.min(prev + 1, count - 1));
   const prev = () => setActive((prev) => Math.max(prev - 1, 0));
 
   const handlePrev = () => {
     prev();
-    setPrev();
-    setFadeClass("fade-out");
-    setTimeout(() => {
-      setFadeClass("fade-in");
-    }, 300);
+    prevProject();
   };
 
   const handleNext = () => {
     next();
-    setNext();
-    setFadeClass("fade-out");
-    setTimeout(() => {
-      setFadeClass("fade-in");
-    }, 300);
+    nextProject();
   };
 
   return (
@@ -51,7 +44,7 @@ const Carousel = ({ cards, setPrev, setNext }) => {
             return (
               <div
                 key={cardIndex}
-                className={`card-container ${fadeClass}`}
+                className={`card-container`}
                 style={{
                   "--active": cardIndex === active ? 1 : 0,
                   "--offset": (active - cardIndex) / 3,

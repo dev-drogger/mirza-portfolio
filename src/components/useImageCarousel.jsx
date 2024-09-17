@@ -35,7 +35,14 @@ const useImageCarousel = (
         clearInterval(intervalIdRef.current);
       }
     };
-  }, [ImageLength, setFade, startCarousel, currentProject, setCurrentImage]);
+  }, [
+    ImageLength,
+    setFade,
+    startCarousel,
+    currentProject,
+    setCurrentImage,
+    intervalIdRef,
+  ]);
 
   return fade;
 };

@@ -1,13 +1,13 @@
 import Carousel from "./Carousel";
 
-const LibraryCard = ({ length, setPrev, setNext }) => {
+const LibraryCard = ({ length }) => {
   const cards = [...new Array(length)].map((_, index) => ({
     index: index,
   }));
 
   return (
     <div className="card-carousel">
-      <Carousel cards={cards} setNext={setNext} setPrev={setPrev} />
+      <Carousel cards={cards} />
     </div>
   );
 };

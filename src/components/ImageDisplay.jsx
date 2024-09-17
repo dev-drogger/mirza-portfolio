@@ -1,12 +1,12 @@
-function ImageDisplay({ imagePath, altText, animation }) {
+function ImageDisplay({ imagePath }) {
   return (
     <div id="image" className="relative flex w-full h-full">
       {imagePath ? (
         <img
           src={imagePath}
-          alt={altText}
+          alt="image"
           loading="lazy"
-          className={`object-cover w-full h-full ${animation}`}
+          className={`object-cover w-full h-full`}
         />
       ) : (
         <p className="text-white">Image not found</p>
