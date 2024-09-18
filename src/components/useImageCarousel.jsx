@@ -27,10 +27,10 @@ const useImageCarousel = (
             setTimeout(() => {
               setCurrentImage((prev) => (prev + 1) % ImageLength);
               setFade({ opacity: 1 });
-            }, 1000); // Adjust this to match your fade duration if necessary
+            }, 1000);
           }, 4000);
-        }, 1000);
-      }, 7500);
+        }, 3000);
+      }, 5500);
     };
 
     const timer = startCarouselFunction();
