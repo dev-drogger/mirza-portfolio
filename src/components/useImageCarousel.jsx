@@ -13,36 +13,32 @@ const useImageCarousel = (
   useEffect(() => {
     if (!startCarousel) return;
 
-    const timer = setTimeout(() => {
+    const startCarouselFunction = () => {
       setFade({ opacity: 0 });
       setTimeout(() => {
         setCurrentImage((prev) => (prev + 1) % ImageLength);
         setFade({ opacity: 1 });
-        const newIntervalId = setInterval(() => {
+        intervalIdRef.current = setInterval(() => {
           setFade({ opacity: 0 });
           setTimeout(() => {
             setCurrentImage((prev) => (prev + 1) % ImageLength);
             setFade({ opacity: 1 });
           }, 1000);
         }, 4000);
-        intervalIdRef.current = newIntervalId;
       }, 1000);
-    }, 4000);
+    };
+
+    const timer = setTimeout(startCarouselFunction, 4000);
 
     return () => {
       clearTimeout(timer);
-      if (intervalIdRef.current) {
-        clearInterval(intervalIdRef.current);
-      }
+      clearInterval(intervalIdRef.current);
     };
-  }, [
-    ImageLength,
-    setFade,
-    startCarousel,
-    currentProject,
-    setCurrentImage,
-    intervalIdRef,
-  ]);
+  }, [ImageLength, setFade, startCarousel, currentProject, setCurrentImage]);
+
+  useEffect(() => {
+    intervalIdRef.current;
+  }, [currentProject, setCurrentImage]);
 
   return fade;
 };

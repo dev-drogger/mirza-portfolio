@@ -1,10 +1,9 @@
-import React, { Suspense, useContext } from "react";
+import React, { useContext } from "react";
 import { ProjectContext } from "./ProjectContext";
 import { NavBar, LibraryCard, Loading } from "../components";
 import ImageDisplay from "../components/ImageDisplay";
 import { animated } from "@react-spring/web";
-
-const LazyImage = React.lazy(() => import("../components/Image"));
+import Image from "../components/Image";
 
 const MemoizedImageDisplay = React.memo(ImageDisplay);
 const MemoizedLibraryCard = React.memo(LibraryCard);
@@ -55,12 +54,10 @@ function Project() {
           </section>
 
           <section>
-            <Suspense>
-              <LazyImage
-                currentLibrary={currentProjectMetadata}
-                currentImage={currentProjectMetadata[0].path}
-              />
-            </Suspense>
+            <Image
+              currentLibrary={currentProjectMetadata}
+              currentImage={currentProjectMetadata[0].path}
+            />
           </section>
 
           <div className="absolute z-[3] -left-1/2 top-0 w-[30%] h-[30%] rounded-full white__gradient" />

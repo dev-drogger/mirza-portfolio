@@ -39,17 +39,17 @@ function useChangeProject(setPageAnimation, intervalIdRef) {
         clearInterval(intervalIdRef.current);
       }
       setPageAnimation({ opacity: 0 });
-      setCurrentProject((prev) => {
-        const newProject =
-          direction === "next"
-            ? (prev + 1) % project.length
-            : (prev - 1 + project.length) % project.length;
-        setCurrentImage(0);
-        return newProject;
-      });
       setTimeout(() => {
+        setCurrentProject((prev) => {
+          const newProject =
+            direction === "next"
+              ? (prev + 1) % project.length
+              : (prev - 1 + project.length) % project.length;
+          setCurrentImage(0);
+          return newProject;
+        });
         setPageAnimation({ opacity: 1 });
-      }, 800);
+      }, 1000);
     },
     [setPageAnimation, intervalIdRef, project.length]
   );

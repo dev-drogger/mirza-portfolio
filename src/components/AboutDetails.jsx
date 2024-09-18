@@ -3,7 +3,7 @@ import styles, { layout } from "../constants/style";
 
 const AboutDetails = ({ experiences, position, company, logo }) => (
   <section
-    className={`${layout.section} ${styles.flexCenter} h-[100vh] max-sm:h-full ${styles.boxWidth} ${styles.paddingX} max-sm:py-0`}
+    className={`${layout.section} ${styles.flexCenter} h-full max-sm:h-full ${styles.boxWidth} ${styles.paddingX} max-sm:py-0`}
   >
     <div className={`${layout.sectionInfo} max-sm:items-center`}>
       <div className="flex w-[200px] h-[120px] items-center justify-center">
