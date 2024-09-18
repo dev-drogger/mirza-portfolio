@@ -15,6 +15,7 @@ function usePageLoading() {
       setPageAnimation({ opacity: 1 });
       setStartCarousel(true);
     }, 3000);
+    console.log(setStartCarousel);
 
     return () => {
       clearTimeout(loadingTimer);

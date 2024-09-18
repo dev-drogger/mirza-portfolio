@@ -14,21 +14,26 @@ const useImageCarousel = (
     if (!startCarousel) return;
 
     const startCarouselFunction = () => {
-      setFade({ opacity: 0 });
+      clearInterval(intervalIdRef.current);
+
       setTimeout(() => {
-        setCurrentImage((prev) => (prev + 1) % ImageLength);
-        setFade({ opacity: 1 });
-        intervalIdRef.current = setInterval(() => {
-          setFade({ opacity: 0 });
-          setTimeout(() => {
-            setCurrentImage((prev) => (prev + 1) % ImageLength);
-            setFade({ opacity: 1 });
-          }, 1000);
-        }, 4000);
-      }, 1000);
+        setFade({ opacity: 0 });
+        setTimeout(() => {
+          setCurrentImage((prev) => (prev + 1) % ImageLength);
+          setFade({ opacity: 1 });
+
+          intervalIdRef.current = setInterval(() => {
+            setFade({ opacity: 0 });
+            setTimeout(() => {
+              setCurrentImage((prev) => (prev + 1) % ImageLength);
+              setFade({ opacity: 1 });
+            }, 1000); // Adjust this to match your fade duration if necessary
+          }, 4000);
+        }, 1000);
+      }, 7500);
     };
 
-    const timer = setTimeout(startCarouselFunction, 4000);
+    const timer = startCarouselFunction();
 
     return () => {
       clearTimeout(timer);

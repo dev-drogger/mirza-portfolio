@@ -20,7 +20,7 @@ function useChangeProject(setPageAnimation, intervalIdRef) {
     if (currentImage >= 0) {
       return currentProjectMetadata[currentImage].path;
     }
-    return null; // or a default path
+    return null;
   }, [currentProjectMetadata, currentImage]);
 
   const currentProjectName = useMemo(
