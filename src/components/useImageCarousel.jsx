@@ -29,7 +29,7 @@ const useImageCarousel = (
               setFade({ opacity: 1 });
             }, 1000);
           }, 4000);
-        }, 3000);
+        }, 1000);
       }, 5500);
     };
 
