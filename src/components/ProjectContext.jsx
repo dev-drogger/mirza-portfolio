@@ -1,6 +1,6 @@
 import React from "react";
-import useImageCarousel from "../components/useImageCarousel";
-import useChangeProject from "../components/useChangeProject";
+import useImageCarousel from "../hooks/useImageCarousel.js";
+import useChangeProject from "../hooks/useChangeProject.js";
 
 export const ProjectContext = React.createContext();
 

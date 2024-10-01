@@ -8,14 +8,14 @@ function useIntersectionObserver(options = {}) {
     const observer = new IntersectionObserver(([entry]) => {
       setIsIntersecting(entry.isIntersecting);
     }, options);
-
+    const curr = ref.current;
     if (ref.current) {
-      observer.observe(ref.current);
+      observer.observe(curr);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (curr) {
+        observer.unobserve(curr);
       }
     };
   }, [options]);

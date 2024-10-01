@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import useFade from "./useFade";
+import { useSpring } from "@react-spring/web";
 
 const useImageCarousel = (
   ImageLength,
@@ -8,7 +8,10 @@ const useImageCarousel = (
   loading
 ) => {
   const intervalIdRef = useRef(null);
-  const { fade, setFade } = useFade();
+  const [fade, setFade] = useSpring(() => ({
+    opacity: 1,
+    config: { duration: 1000 },
+  }));
 
   useEffect(() => {
     if (loading) return;

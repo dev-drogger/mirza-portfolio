@@ -11,7 +11,7 @@ const Layout = () => {
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, []); // Empty dependency array to run effect only once
+  }, []);
 
   return (
     <>

@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { projectCard } from "../constants";
-import { fetchProject, preload } from "../components/useFetchProject";
+import fetchProject from "./useFetchProject.js";
+import preloadImages from "./usePreloadImages.js";
 import { useSpring } from "@react-spring/web";
 
 function useChangeProject(intervalIdRef) {
@@ -19,12 +20,11 @@ function useChangeProject(intervalIdRef) {
     const loadImages = async () => {
       try {
         const response = await fetchProject(projectCard[query]?.name);
-        await preload(response[0].Data);
-        console.log(response);
+        await preloadImages(response[0].Data);
         setPageAnimation({ opacity: 0 });
         setProject(response);
-      } catch (error) {
-        console.log(error.message);
+      } catch (err) {
+        throw new Error(`Failed: ${err.message}`);
       } finally {
         setPageAnimation({ opacity: 0 });
         setTimeout(() => {
@@ -43,7 +43,6 @@ function useChangeProject(intervalIdRef) {
 
   const currentImageURL = useMemo(() => {
     if (currentImage >= 0 && currentImage < currentProjectData.length) {
-      // Added bounds check
       return currentProjectData[currentImage]?.url || null;
     }
     return null;

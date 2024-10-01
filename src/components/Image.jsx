@@ -1,8 +1,8 @@
-import React, { Suspense, useState, useEffect, useContext } from "react";
+import React, { Suspense, useState, useContext } from "react";
 import { ProjectContext } from "./ProjectContext";
 import { Skeleton } from "@mui/material";
 
-const LazyImageCard = React.lazy(() => import("./ImageCard"));
+const LazyImageGallery = React.lazy(() => import("./ImageGallery"));
 
 function Image() {
   const { loading, currentProjectData } = useContext(ProjectContext);
@@ -50,7 +50,7 @@ function Image() {
               <div key={index}>
                 {item ? (
                   <Suspense>
-                    <LazyImageCard
+                    <LazyImageGallery
                       index={index}
                       imgURL={item.url}
                       changeLandingImage={() => handleImageChange(item.url)}
