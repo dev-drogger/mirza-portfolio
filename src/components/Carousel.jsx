@@ -3,12 +3,13 @@ import { chevRight, chevLeft } from "../assets/icon";
 import Card from "./Card.jsx";
 import { ProjectContext } from "./ProjectContext";
 
-const MAX_VISIBILITY = 2;
-
-const Carousel = ({ cards }) => {
+const Carousel = () => {
   const [active, setActive] = useState(0);
+  const { nextProject, prevProject, projectCard } = useContext(ProjectContext);
+
+  const cards = projectCard;
   const count = cards.length;
-  const { nextProject, prevProject } = useContext(ProjectContext);
+  const MAX_VISIBILITY = 2;
 
   const next = () => setActive((prev) => Math.min(prev + 1, count - 1));
   const prev = () => setActive((prev) => Math.max(prev - 1, 0));
@@ -39,7 +40,7 @@ const Carousel = ({ cards }) => {
             Math.max(0, active - MAX_VISIBILITY),
             Math.min(count, active + MAX_VISIBILITY + 1)
           )
-          .map((_, i) => {
+          .map((project, i) => {
             const cardIndex = i + Math.max(0, active - MAX_VISIBILITY);
             return (
               <div
@@ -54,7 +55,7 @@ const Carousel = ({ cards }) => {
                   pointerEvents: active === cardIndex ? "auto" : "none",
                 }}
               >
-                <Card index={cardIndex} />
+                <Card thumbnail={project.thumbnail} />
               </div>
             );
           })}

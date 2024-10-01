@@ -21,11 +21,10 @@ function NavBar() {
           {navLinks.map((nav, index) => (
             <li
               key={nav.id}
-              className={`font-outfit font-normal cursor-pointer text-[16px] text-white ${
-                index === navLinks.length - 1 ? "mr-0" : "mr-10"
-              }`}
+              className={`font-outfit font-normal cursor-pointer text-[16px] text-white ${index === navLinks.length - 1 ? "mr-0" : "mr-10"
+                }`}
             >
-              <Link to={`${nav.id}`}>{nav.title}</Link>
+              <Link to={nav.id}>{nav.title}</Link>
             </li>
           ))}
         </ul>
@@ -39,19 +38,17 @@ function NavBar() {
           />
 
           <div
-            className={`${
-              toggle ? "flex" : "hidden"
-            } p-6 fixed bg-black-gradient top-20 right-0 mx-4 my-2 min-w-[140px] z-100 rounded-xl sidebar`}
+            className={`${toggle ? "flex" : "hidden"
+              } p-6 fixed bg-black-gradient top-20 right-0 mx-4 my-2 min-w-[140px] z-100 rounded-xl sidebar`}
           >
             <ul className="list-none flex flex-col justify-end items-center flex-1">
               {navLinks.map((nav, index) => (
                 <li
                   key={nav.id}
-                  className={`font-outfit font-normal cursor-pointer text-[16px] text-white ${
-                    index === navLinks.length - 1 ? "mr-0" : "mb-4"
-                  }`}
+                  className={`font-outfit font-normal cursor-pointer text-[16px] text-white ${index === navLinks.length - 1 ? "mr-0" : "mb-4"
+                    }`}
                 >
-                  <Link to={`${nav.id}`}>{nav.title}</Link>
+                  <Link to={nav.id}>{nav.title}</Link>
                 </li>
               ))}
             </ul>

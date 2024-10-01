@@ -1,37 +1,55 @@
-import { images } from "../constants/outputArray";
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
+import { projectCard } from "../constants";
+import { fetchProject, preload } from "../components/useFetchProject";
+import { useSpring } from "@react-spring/web";
 
-function useChangeProject(setPageAnimation, intervalIdRef) {
-  const project = images;
+function useChangeProject(intervalIdRef) {
+  const [query, setQuery] = useState(0);
+  const [project, setProject] = useState([]);
   const [currentProject, setCurrentProject] = useState(0);
   const [currentImage, setCurrentImage] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [pageAnimation, setPageAnimation] = useSpring(() => ({
+    opacity: 1,
+    config: { duration: 1000 },
+  }));
+  const currDB = useMemo(() => project[0] || {}, [project]);
 
-  const imageLength = useMemo(
-    () => project[currentProject].metadata.length,
-    [currentProject, project]
-  );
+  useEffect(() => {
+    const loadImages = async () => {
+      try {
+        const response = await fetchProject(projectCard[query]?.name);
+        await preload(response[0].Data);
+        console.log(response);
+        setPageAnimation({ opacity: 0 });
+        setProject(response);
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setPageAnimation({ opacity: 0 });
+        setTimeout(() => {
+          setPageAnimation({ opacity: 1 });
+          setLoading(false);
+        }, 1250);
+      }
+    };
 
-  const currentProjectMetadata = useMemo(
-    () => project[currentProject].metadata,
-    [currentProject, project]
-  );
+    loadImages();
+  }, [query, setPageAnimation]);
 
-  const currentImagePath = useMemo(() => {
-    if (currentImage >= 0) {
-      return currentProjectMetadata[currentImage].path;
+  const imageLength = useMemo(() => currDB?.Data?.length || 0, [currDB]);
+
+  const currentProjectData = useMemo(() => currDB.Data || [], [currDB]);
+
+  const currentImageURL = useMemo(() => {
+    if (currentImage >= 0 && currentImage < currentProjectData.length) {
+      // Added bounds check
+      return currentProjectData[currentImage]?.url || null;
     }
     return null;
-  }, [currentProjectMetadata, currentImage]);
+  }, [currentImage, currentProjectData]);
 
-  const currentProjectName = useMemo(
-    () => project[currentProject].folder,
-    [currentProject, project]
-  );
-
-  const thumbnailPath = useMemo(
-    () => project[currentProject].metadata[0].path,
-    [currentProject, project]
-  );
+  const currentProjectName = useMemo(() => currDB?.ProjectName || "", [currDB]);
 
   const changeProject = useCallback(
     (direction) => {
@@ -40,18 +58,21 @@ function useChangeProject(setPageAnimation, intervalIdRef) {
       }
       setPageAnimation({ opacity: 0 });
       setTimeout(() => {
+        setPageAnimation({ opacity: 1 });
         setCurrentProject((prev) => {
           const newProject =
             direction === "next"
-              ? (prev + 1) % project.length
-              : (prev - 1 + project.length) % project.length;
+              ? (prev + 1) % projectCard.length
+              : (prev - 1 + projectCard.length) % projectCard.length;
+          setQuery(newProject);
+
+          setLoading(true);
           setCurrentImage(0);
           return newProject;
         });
-        setPageAnimation({ opacity: 1 });
-      }, 1000);
+      }, 1250);
     },
-    [setPageAnimation, intervalIdRef, project.length]
+    [intervalIdRef, setPageAnimation]
   );
 
   const nextProject = useCallback(() => changeProject("next"), [changeProject]);
@@ -59,16 +80,17 @@ function useChangeProject(setPageAnimation, intervalIdRef) {
 
   return {
     imageLength,
-    currentProjectMetadata,
+    currentProjectData,
     currentProjectName,
-    currentImagePath,
-    thumbnailPath,
+    currentImageURL,
     nextProject,
     prevProject,
-    project,
     currentImage,
     setCurrentImage,
     currentProject,
+    projectCard,
+    loading,
+    pageAnimation,
   };
 }
 

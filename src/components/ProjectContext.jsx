@@ -1,51 +1,47 @@
 import React from "react";
 import useImageCarousel from "../components/useImageCarousel";
 import useChangeProject from "../components/useChangeProject";
-import usePageLoading from "../components/usePageLoading";
 
 export const ProjectContext = React.createContext();
 
 export const ProjectProvider = ({ children }) => {
-  const { loading, pageAnimation, setPageAnimation, startCarousel } =
-    usePageLoading();
-
   const intervalIdRef = useImageCarousel();
 
   const {
     imageLength,
-    currentProjectMetadata,
+    currentProjectData,
     currentProjectName,
-    currentImagePath,
-    thumbnailPath,
+    currentImageURL,
     nextProject,
     prevProject,
-    project,
     currentImage,
     setCurrentImage,
     currentProject,
-  } = useChangeProject(setPageAnimation, intervalIdRef);
+    projectCard,
+    loading,
+    pageAnimation,
+  } = useChangeProject(intervalIdRef);
 
   const fade = useImageCarousel(
     imageLength,
-    startCarousel,
     setCurrentImage,
-    currentProject
+    currentProject,
+    loading
   );
 
   const value = {
-    loading,
-    pageAnimation,
     imageLength,
-    currentProjectMetadata,
+    currentProjectData,
     currentProjectName,
-    currentImagePath,
-    thumbnailPath,
+    currentImageURL,
     nextProject,
     prevProject,
-    project,
     currentImage,
     setCurrentImage,
     currentProject,
+    projectCard,
+    loading,
+    pageAnimation,
     fade,
   };
 

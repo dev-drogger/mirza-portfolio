@@ -9,7 +9,6 @@ import DownloadButton from "./DownloadButton";
 import ExperienceCard from "./ExperienceCard";
 import GetStartedButton from "./GetStartedButton";
 import Heading from "./Heading";
-import LibraryCard from "./LibraryCard";
 import SocialMedia from "./SocialMedia";
 import ScrollToTop from "./ScrollToTop";
 import App from "../App";
@@ -17,8 +16,10 @@ import Loading from "./Loading";
 import Education from "./Education";
 import Works from "./Works";
 import useImagePreloader from "./useImagePreloader";
+import Layout from "./Layout";
 
 export {
+  Layout,
   Works,
   Education,
   useImagePreloader,
@@ -31,7 +32,6 @@ export {
   ExperienceCard,
   GetStartedButton,
   Heading,
-  LibraryCard,
   SocialMedia,
   NavBar,
   Hero,

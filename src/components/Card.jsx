@@ -1,9 +1,7 @@
-import { images } from "../constants/outputArray";
-
-const Card = ({ index }) => (
+const Card = ({ thumbnail }) => (
   <div className="card absolute ">
     <img
-      src={images[index % images.length].metadata[0].path}
+      src={thumbnail}
       alt=""
       className="size-full object-cover"
       loading="lazy"

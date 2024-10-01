@@ -11,6 +11,16 @@ import {
   github,
 } from "../assets/icon";
 
+import {
+  thumbnail_bnc,
+  thumbnail_etc,
+  thumbnail_mcad,
+  thumbnail_personal,
+  thumbnail_rikhana,
+  thumbnail_saga,
+  thumbnail_tsel,
+} from "../assets/thumbnail";
+
 export const landingCarousel = [
   {
     id: 1,
@@ -160,5 +170,43 @@ export const socialMedia = [
     icon: drive,
     name: "More Portfolio",
     link: "https://drive.google.com/drive/folders/1K6Krx1ZIWlaX2nQ1oCeKi9Iu5pl4eXDs?usp=drive_link",
+  },
+];
+
+export const projectCard = [
+  {
+    id: "card-1",
+    name: "Personal Project",
+    thumbnail: thumbnail_personal,
+  },
+  {
+    id: "card-2",
+    name: "Rikhana Boutique Catalogue",
+    thumbnail: thumbnail_rikhana,
+  },
+  {
+    id: "card-3",
+    name: "LSPR SAGA 2023",
+    thumbnail: thumbnail_saga,
+  },
+  {
+    id: "card-4",
+    name: "Telkomsel Development Training",
+    thumbnail: thumbnail_tsel,
+  },
+  {
+    id: "card-5",
+    name: "BNC Development Training",
+    thumbnail: thumbnail_bnc,
+  },
+  {
+    id: "card-6",
+    name: "Multimatics Appreciation Day",
+    thumbnail: thumbnail_mcad,
+  },
+  {
+    id: "card-7",
+    name: "ETC",
+    thumbnail: thumbnail_etc,
   },
 ];
