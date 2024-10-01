@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useContext } from "react";
+import React, { Suspense, useState, useContext, useEffect } from "react";
 import { ProjectContext } from "./ProjectContext";
 import { Skeleton } from "@mui/material";
 
@@ -8,6 +8,11 @@ function Image() {
   const { loading, currentProjectData } = useContext(ProjectContext);
   const [landingImage, setLandingImage] = useState("");
   const [fadeClass, setFadeClass] = useState("");
+
+  useEffect(() => {
+    if (loading) return;
+    setLandingImage(currentProjectData[0].url);
+  }, [currentProjectData, loading]);
 
   const handleImageChange = (newImagePath) => {
     setFadeClass("fade-out");
